@@ -71,6 +71,15 @@ def merge_v0(l1: LinkedList, l2: LinkedList) -> Union[LinkedList, None]:
         else:
             l3.add(temp2.value)
             temp2 = temp2.next
+    if temp1 is None:
+        while temp2 is not None:
+            l3.add(temp2.value)
+            temp2 = temp2.next
+    elif temp2 is None:
+        while temp1 is not None:
+            l3.add(temp1.value)
+            temp1 = temp1.next
+
     return l3
 
 class ListNode:
@@ -97,17 +106,18 @@ def merge_v1(l1: Union[ListNode, None], l2: Union[ListNode, None]) -> Union[List
             l3.next = temp2
             temp2 = temp2.next
         l3 = l3.next
+    l3.next = temp1 or temp2
     return head.next
 
 if __name__ == '__main__':
-    # l1 = LinkedList()
-    # l1.addMultiple([2,3,10,20])
-    # l2 = LinkedList()
-    # l2.addMultiple([1,4,5,11,15])
-    # l3 = merge_v0(l1, l2)
-    # l3.traverse()
+    l1 = LinkedList()
+    l1.addMultiple([2,3,10,20])
+    l2 = LinkedList()
+    l2.addMultiple([1,4,5,11,15, 20])
+    l3 = merge_v0(l1, l2)
+    l3.traverse()
     l1 = ListNode(2,ListNode(3, ListNode(10, ListNode(20))))
-    l2 = ListNode(1,ListNode(4, ListNode(5, ListNode(11, ListNode(15)))))
+    l2 = ListNode(1,ListNode(4, ListNode(5, ListNode(11, ListNode(15, ListNode(20))))))
     l3 = merge_v1(l1,l2)
     temp = l3
     while temp is not None:
